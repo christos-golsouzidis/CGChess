@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="styles.css" rel="stylesheet"/>
+    <title>CCCHESS</title>
+</head>
+<body id="body">
+    <div class="navigo">
+        <nav class="mainmenu">
+            <h2>CCChess</h2>
+            <!-- only in small screen visible -->
+            <button id="toggle" class="menu-s" type="submit" onclick="toggleButton()"><h2>☰</h2></button>
+            
+            <div class="menu-l">
+                <button class="game subitem" type="submit" onclick="toggleGame()">
+                    <h3>Game</h3>
+                </button>
+                <button class="edit subitem" type="submit" onclick="toggleEdit()">
+                    <h3>Edit</h3>
+                </button>
+                <button class="view subitem" type="submit" onclick="toggleView()">
+                    <h3>View</h3>
+                </button>
+            </div>
+        </nav>
+
+        <div class="menu-s" id="togglemenu">
+            <button class="game subitem" type="submit" onclick="toggleGame()">
+                <h3>Game</h3>
+            </button>
+            <button class="edit subitem" type="submit" onclick="toggleEdit()">
+                <h3>Edit</h3>
+            </button>
+            <button class="view subitem" type="submit" onclick="toggleView()">
+                <h3>View</h3>
+            </button>
+        </div>
+
+        <div id="board">
+            <canvas></canvas>
+        </div>
+    </div>
+    <div class="fenbox">
+        <label>FEN:</label>
+        <input id="fen" type="text" readonly>
+    </div>
+    <script src="./main.mjs" type="module" ></script>
+</body>
+</html>
