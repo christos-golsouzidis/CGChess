@@ -56,9 +56,18 @@ $('document').ready(function ()
 
   $('#view').on('click',ToggleViewMenu);
 
-  $('.classical').on('click',CreateNewClassical);
+  $('#classic_button').on('click',CreateNewClassical);
 
-  $('.ninesixty').on('click',CreateNewRFC);
+  $('#spid').on('click',function(){this.select();});
+
+  $('#spid').on('keypress',function(key){
+    if(key.which == 13)
+    {
+      CreateNewRFC();
+    }  
+  });
+
+  $('#frc_button').on('click',CreateNewRFC);
 
   ResizeWindow();
   DisplaySetupPos();

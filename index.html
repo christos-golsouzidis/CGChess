@@ -22,11 +22,18 @@
                         <h3 id="game_text">New game</h3>
                     </button>
                     <div class="submenu_game">
-                        <button class="classical game subitem">
-                            <h3>New classical</h3>
+                        <h4>Classical Game:</h4>
+                        <button class="classical game subitem" id="classic_button">
+                            <h3>New Classical Game</h3>
                         </button>
-                        <button class="ninesixty game subitem">
-                            <h3>New 960 chess</h3>
+                        <h4>Random Fischer Game:</h4>
+                        <div class="flexclass">
+                        <h5>SPID:</h5>
+                        <input type="text" class="ninesixty game subitem"
+                         id="spid" value="&lt;random&gt; (default)">
+                        </div>
+                        <button class="ninesixty game subitem" id="frc_button">
+                            <h3>New RFC Game</h3>
                         </button>
                     </div>
                     <button class="edit subitem" id="edit">
@@ -57,7 +64,7 @@
         </div>
     </div>
     <div class="rfcid">
-        <h3>Position ID: <span id="rfc_id">518</span></h3>
+        <h3>SPID: <span id="rfc_id">518</span></h3>
     </div>
     <div class="fenbox">
         <label>FEN:</label>

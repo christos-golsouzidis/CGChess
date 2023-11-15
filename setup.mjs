@@ -32,7 +32,7 @@ export function Generate960(posId)
 {
     let startStr = Array(8).fill('-');
     
-    const knigthTable = [
+    const knightTable = [
         'NN---',
         'N-N--',
         'N--N-',
@@ -75,7 +75,7 @@ export function Generate960(posId)
     index = 0;
     for(let j=0; j<8; j++){
         if(startStr[j] === '-'){
-            startStr[j] = knigthTable[posId][index];
+            startStr[j] = knightTable[posId][index];
             index++;
         }
 
@@ -108,16 +108,25 @@ export function Generate960(posId)
 export function CreateNewClassical(){
     
     InitializePieces('RNBQKBNR');
+    $('#fen').val('');
     $('#fen').val(GetFEN());
     $('#rfc_id').text(518);
 
 }
 
 
-export function CreateNewRFC(){
+export function CreateNewRFC()
+{
 
-    let posId = Math.floor(Math.random() * 960);
+    let posId = $(spid).val();
+    
+    if(!(posId < 960 && posId >= 0))
+    {
+        posId = Math.floor(Math.random() * 960);
+    }
+
     InitializePieces(Generate960(posId));
+    $('#fen').val('');
     $('#fen').val(GetFEN());
     $('#rfc_id').text(posId);
 

@@ -1,5 +1,4 @@
 
-
 const o = (i)=>console.log(i);
 
 
@@ -123,7 +122,12 @@ function Generate960(posId)
     return startStr;
 }
 
+input = 713
 
-o(Generate960(0));
+
+if(input < 960 && input >= 0)
+{
+    o(Generate960(input));
+}
 
 

@@ -56,6 +56,14 @@ nav{
     background-color: #a8fbdc;
 }
 
+.flexclass{
+    display: flex;
+}
+
+#spid{
+    margin-left: 10px;
+}
+
 #board{
     display: flex;
     /* justify-content: center; */
