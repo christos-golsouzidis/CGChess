@@ -1,9 +1,10 @@
-
-import {ResizeWindow} from "./display.mjs";
-import {Generate960, InitializePieces, GetFEN} from "./setup.mjs";
+"use strict";
+import {ResizeWindow, ToggleGameMenu, ToggleEditMenu, ToggleViewMenu, 
+  DisplayMenu, DisplaySetupPos} from "./display.mjs";
+import {CreateNewClassical, CreateNewRFC} from "./setup.mjs";
 
 export const game = {
-  classicPos:false, //true = classical, false = 960
+  classicPos:true, //true = classical, false = 960
 
 }
 
@@ -12,47 +13,53 @@ export const position = {
   fenString: '',
 }
 
-
 // ------------------- only for debugging purposes ----------------------
 export const o = (i)=>console.log(String(i));
 // ----------------------------------------------------------------------
 
-
-if(game.classicPos === false){
-    InitializePieces(Generate960());
+export class ChessMenu {
+  constructor(){
+    this.reset()
+  }
+  reset(){
+    this.option_game = false;
+    this.option_edit = false;
+    this.option_view = false;
+    o('reset event');
+  }
 }
-else{
-    InitializePieces('RNBQKBNR');
-}
-document.getElementById('fen').value = GetFEN();
 
 
-document.getElementById("toggle").onclick = function(){toggleButton()};
+export const chessMenu = new ChessMenu();
 
 
-document.getElementById("body").onload = function() {
+$('document').ready(function ()
+{
+  // reset menu values
+  chessMenu.reset();
+
+  // initialize board
+  CreateNewRFC();
+
+  // register events
+  $('#toggle').on('click',function(){
+    $("#togglemenu").fadeToggle(128);
+    chessMenu.reset();
+    DisplayMenu();
+  });
+
+  $(window).on('resize',ResizeWindow);
+
+  $('#game').on('click',ToggleGameMenu);
+
+  $('#edit').on('click',ToggleEditMenu);
+
+  $('#view').on('click',ToggleViewMenu);
+
+  $('.classical').on('click',CreateNewClassical);
+
+  $('.ninesixty').on('click',CreateNewRFC);
+
   ResizeWindow();
-};
-
-document.getElementById("body").onresize = function() {
-  ResizeWindow();
-};
-
-
-function toggleButton() {
-    let x = document.getElementById("togglemenu");
-    if (x.style.display === "grid") {
-      x.style.display = "none";
-    } else {
-      x.style.display = "grid";
-    }
-}
-
-// function gameButton() {
-//     let x = document.getElementsByClassName("game");
-//     if (x.style.display === "grid") {
-//       x.style.display = "none";
-//     } else {
-//       x.style.display = "grid";
-//     }
-// }
+  DisplaySetupPos();
+  });

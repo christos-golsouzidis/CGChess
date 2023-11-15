@@ -14,23 +14,38 @@ body{
     display:block;
 }
 
+.navmenu{
+    display:block;
+    background-color: black;
+}
+
 nav{
     background-color: black;
-    padding: 20px;
+    padding: 40px;
 }
 
-.menu-s{
+.mainbordermenu{
+    padding: 10px;
+}
+
+#toggle{
     display: none;
 }
-/* 
-.sidemenu{
+
+#togglemenu{
+    display: block;
+}
+
+.submenu_game, .submenu_edit, .submenu_view{
     display: none;
-} */
+}
 
 .subitem{
-    display: block;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
     width: 100%;
-    margin: 10px 0 10px 0;
+    margin: 10px 0;
     background-color: #f1f1d4;
 }
 
@@ -49,6 +64,10 @@ nav{
 canvas{
     border: 1px solid black;
     width: 90%;
+}
+
+#piece_setup{
+    width: 100%;
 }
 
 .fenbox{
@@ -76,7 +95,11 @@ canvas{
         display:flex;
     }
 
-    .menu-s{
+    #toggle{
+        display: flex;
+    }
+    
+    .menu{
         font-size:large;
         display: block;
         background-color: #f1f1d4;

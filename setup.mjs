@@ -1,6 +1,6 @@
 
-import { position } from "./main.mjs";
-
+import { game, position } from "./main.mjs";
+import { ResizeWindow } from "./display.mjs";
 import { o } from "./main.mjs";
 
 export function InitializePieces(startPos)
@@ -15,23 +15,49 @@ export function InitializePieces(startPos)
 
         position.square[row][7] = startPos[row].toLocaleUpperCase();
 
+        position.square[row][2] = '';
+
+        position.square[row][3] = '';
+
+        position.square[row][4] = '';
+
+        position.square[row][5] = '';
     }
+    ResizeWindow();
 }
 
 
-export function Generate960()
+
+export function Generate960(posId)
 {
     let startStr = Array(8).fill('-');
     
-    let rnd = (len) => Math.floor(Math.random() * len);
-    // place the first bishop on the darksquares
-    let b1 = rnd(4);
-    startStr[b1*2] = 'B';
-    // place the second bishop on the lightsquares
-    let b2 = rnd(4);
-    startStr[b2*2+1] = 'B';
+    const knigthTable = [
+        'NN---',
+        'N-N--',
+        'N--N-',
+        'N---N',
+        '-NN--',
+        '-N-N-',
+        '-N--N',
+        '--NN-',
+        '--N-N',
+        '---NN',
+    ]
+
+    // place the first bishop on the lightsquares
+    let b1 = posId % 4;
+    posId = Math.floor(posId / 4);
+    startStr[b1*2+1] = 'B';
+
+    // place the second bishop on the darksquares
+    let b2 = posId % 4;
+    posId = Math.floor(posId / 4);
+    startStr[b2*2] = 'B';
+
     // place the queen on an empty square
-    let q = rnd(6);
+    let q = posId % 6;
+    posId = Math.floor(posId / 6);
     let index = 0;
     for(let j=0; j<8; j++){
         if(startStr[j] === '-'){
@@ -43,32 +69,18 @@ export function Generate960()
             index++;
         }
     }
-    // place the first knight on an empty square
-    let n1 = rnd(5);
+    
+    // place the knights according to the knight table schema
+    // now posId should be 0-9
     index = 0;
     for(let j=0; j<8; j++){
         if(startStr[j] === '-'){
-
-            if(n1 === index){
-                startStr[j] = 'N';
-                break;
-            }
+            startStr[j] = knigthTable[posId][index];
             index++;
         }
-    }
-    // place the second knight on an empty square
-    let n2 = rnd(4);
-    index = 0;
-    for(let j=0; j<8; j++){
-        if(startStr[j] === '-'){
 
-            if(n2 === index){
-                startStr[j] = 'N';
-                break;
-            }
-            index++;
-        }
     }
+
     // on the three remainding squares place a rook, 
     // the king and the other rook
     index = 0;
@@ -93,10 +105,28 @@ export function Generate960()
 }
 
 
+export function CreateNewClassical(){
+    
+    InitializePieces('RNBQKBNR');
+    $('#fen').val(GetFEN());
+    $('#rfc_id').text(518);
+
+}
+
+
+export function CreateNewRFC(){
+
+    let posId = Math.floor(Math.random() * 960);
+    InitializePieces(Generate960(posId));
+    $('#fen').val(GetFEN());
+    $('#rfc_id').text(posId);
+
+}
+
+
 export function GetFEN()
 {
     let emptyCounter = 0;
-    o(position.square)
 
     for(let col=0;col<8;col++)
     {

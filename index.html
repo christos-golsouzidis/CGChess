@@ -3,49 +3,70 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/rc/favicon.ico">
     <link href="styles.css" rel="stylesheet"/>
-    <title>CCCHESS</title>
+    <title>CG CHESS</title>
 </head>
 <body id="body">
     <div class="navigo">
-        <nav class="mainmenu">
-            <h2>CCChess</h2>
-            <!-- only in small screen visible -->
-            <button id="toggle" class="menu-s" type="submit" onclick="toggleButton()"><h2>☰</h2></button>
-            
-            <div class="menu-l">
-                <button class="game subitem" type="submit" onclick="toggleGame()">
-                    <h3>Game</h3>
-                </button>
-                <button class="edit subitem" type="submit" onclick="toggleEdit()">
-                    <h3>Edit</h3>
-                </button>
-                <button class="view subitem" type="submit" onclick="toggleView()">
-                    <h3>View</h3>
-                </button>
+        <div class="navmenu">
+            <div class="mainbordermenu">
+                <nav class="mainmenu">
+                    <h2>CG Chess</h2>
+                    <!-- only in small screen visible -->
+                    <button id="toggle" class="burger"><h2>☰</h2></button>
+                    <!-- end comment -->
+                </nav>
+                <div class="submenu" id="togglemenu">
+                    <button class="game subitem" id="game">
+                        <h3 id="game_text">New game</h3>
+                    </button>
+                    <div class="submenu_game">
+                        <button class="classical game subitem">
+                            <h3>New classical</h3>
+                        </button>
+                        <button class="ninesixty game subitem">
+                            <h3>New 960 chess</h3>
+                        </button>
+                    </div>
+                    <button class="edit subitem" id="edit">
+                        <h3 id="edit_text">Edit position</h3>
+                    </button>
+                    <div class="submenu_edit">
+
+                        <div class="edit subitem">
+                            <canvas id="piece_setup"></canvas>
+                        </div>
+
+                    </div>
+                    <button class="view subitem" id="view">
+                        <h3 id="view_text">View</h3>
+                    </button>
+                    <div class="submenu_view">
+                        
+                        <div class="view subitem">
+                            bla bla
+                        </div>
+
+                    </div>
+                </div>
             </div>
-        </nav>
-
-        <div class="menu-s" id="togglemenu">
-            <button class="game subitem" type="submit" onclick="toggleGame()">
-                <h3>Game</h3>
-            </button>
-            <button class="edit subitem" type="submit" onclick="toggleEdit()">
-                <h3>Edit</h3>
-            </button>
-            <button class="view subitem" type="submit" onclick="toggleView()">
-                <h3>View</h3>
-            </button>
         </div>
-
         <div id="board">
-            <canvas></canvas>
+            <canvas id="main_canvas"></canvas>
         </div>
+    </div>
+    <div class="rfcid">
+        <h3>Position ID: <span id="rfc_id">518</span></h3>
     </div>
     <div class="fenbox">
         <label>FEN:</label>
         <input id="fen" type="text" readonly>
     </div>
+    <script	  src="https://code.jquery.com/jquery-3.7.1.js"
+			  integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4="
+			  crossorigin="anonymous"></script>
+
     <script src="./main.mjs" type="module" ></script>
 </body>
 </html>
