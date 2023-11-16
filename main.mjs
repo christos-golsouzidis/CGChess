@@ -1,16 +1,15 @@
+
 "use strict";
+
+// imports
 import {ResizeWindow, ToggleGameMenu, ToggleEditMenu, ToggleViewMenu, 
-  DisplayMenu, DisplaySetupPos} from "./display.mjs";
-import {CreateNewClassical, CreateNewRFC} from "./setup.mjs";
+    DisplayMenu} from "./display.mjs";
+import { Board } from "./board.mjs";
 
+// exports
 export const game = {
-  classicPos:true, //true = classical, false = 960
+  classicPos:true, // true = classical, false = 960
 
-}
-
-export const position = {
-  square: Array.from({ length: 8 }, () => Array(8).fill('')),
-  fenString: '',
 }
 
 // ------------------- only for debugging purposes ----------------------
@@ -25,7 +24,6 @@ export class ChessMenu {
     this.option_game = false;
     this.option_edit = false;
     this.option_view = false;
-    o('reset event');
   }
 }
 
@@ -35,40 +33,41 @@ export const chessMenu = new ChessMenu();
 
 $('document').ready(function ()
 {
-  // reset menu values
-  chessMenu.reset();
-
-  // initialize board
-  CreateNewRFC();
-
-  // register events
-  $('#toggle').on('click',function(){
-    $("#togglemenu").fadeToggle(128);
+    // reset menu values
     chessMenu.reset();
-    DisplayMenu();
-  });
 
-  $(window).on('resize',ResizeWindow);
+    // initialize board
+    let board = new Board();
+    board.createNewRFC();
 
-  $('#game').on('click',ToggleGameMenu);
+    // register events
+    $('#toggle').on('click',function(){
+        $("#togglemenu").fadeToggle(128);
+        chessMenu.reset();
+        DisplayMenu();
+    });
 
-  $('#edit').on('click',ToggleEditMenu);
+    $(window).on('resize',ResizeWindow);
 
-  $('#view').on('click',ToggleViewMenu);
+    $('#game').on('click',ToggleGameMenu);
 
-  $('#classic_button').on('click',CreateNewClassical);
+    $('#edit').on('click',ToggleEditMenu);
 
-  $('#spid').on('click',function(){this.select();});
+    $('#view').on('click',ToggleViewMenu);
 
-  $('#spid').on('keypress',function(key){
-    if(key.which == 13)
-    {
-      CreateNewRFC();
-    }  
-  });
+    $('#classic_button').on('click',board.createNewClassical);
 
-  $('#frc_button').on('click',CreateNewRFC);
+    $('#spid').on('click',function(){this.select();});
 
-  ResizeWindow();
-  DisplaySetupPos();
-  });
+    $('#spid').on('keypress',function(key){
+        if(key.which == 13)
+        {
+            board.createNewRFC();
+        }  
+    });
+
+    $('#frc_button').on('click',board.createNewRFC);
+
+    // display functions
+    ResizeWindow();
+});
