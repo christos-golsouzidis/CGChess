@@ -1,9 +1,10 @@
 
 export class Board {
-    constructor(ctx, rows, columns, unit, dark = '#3ebf8e', light = '#a8fbdc'){
+    constructor(canvas, rows, columns, unit, dark = '#3ebf8e', light = '#a8fbdc'){
         this.rows = rows;
         this.cols = columns;
-        this.ctx = ctx;
+        this.canvas = canvas;
+        this.ctx = this.canvas.getContext('2d');
         this.dark = dark;
         this.light = light;
         this.unit = unit;
@@ -93,6 +94,8 @@ export class Board {
         this.initializePieces(this.generate960(posId));
         $('#fen').val(this.getFEN());
         $('#rfc_id').text(posId);
+        this.drawBoard();
+        this.drawPieces();
     
     }
 
@@ -102,7 +105,8 @@ export class Board {
         this.initializePieces('RNBQKBNR');
         $('#fen').val(this.getFEN());
         $('#rfc_id').text(518);
-    
+        this.drawBoard();
+        this.drawPieces();
     }
 
     generate960(posId)
@@ -228,11 +232,11 @@ export class Board {
             {
                 if(((x ^ y) % 2) == 0)
                 {
-                    this.ctx.fillStyle = light;
+                    this.ctx.fillStyle = this.light;
                 }
                 else
                 {
-                    this.ctx.fillStyle = dark;
+                    this.ctx.fillStyle = this.dark;
                 }
                 this.ctx.fillRect(this.unit*x, this.unit*y, this.unit, this.unit);
             }
@@ -250,84 +254,84 @@ export class Board {
                 case 'k':
                 const img_bk = new Image();
                 img_bk.onload = ()=>{
-                    ctx.drawImage(img_bk,x*this.unit,y*this.unit,this.unit,this.unit);
+                    this.ctx.drawImage(img_bk,x*this.unit,y*this.unit,this.unit,this.unit);
                 };
                 img_bk.src = './rc/60bk.png';
                 break;
                 case 'K':
                 const img_wk = new Image();
                 img_wk.onload = ()=>{
-                    ctx.drawImage(img_wk,x*this.unit,y*this.unit,this.unit,this.unit);
+                    this.ctx.drawImage(img_wk,x*this.unit,y*this.unit,this.unit,this.unit);
                 };
                 img_wk.src = './rc/60wk.png';
                 break;
                 case 'b':
                 const img_bb = new Image();
                 img_bb.onload = ()=>{
-                    ctx.drawImage(img_bb,x*this.unit,y*this.unit,this.unit,this.unit);
+                    this.ctx.drawImage(img_bb,x*this.unit,y*this.unit,this.unit,this.unit);
                 };
                 img_bb.src = './rc/60bb.png';
                 break;
                 case 'B':
                 const img_wb = new Image();
                 img_wb.onload = ()=>{
-                    ctx.drawImage(img_wb,x*this.unit,y*this.unit,this.unit,this.unit);
+                    this.ctx.drawImage(img_wb,x*this.unit,y*this.unit,this.unit,this.unit);
                 };
                 img_wb.src = './rc/60wb.png';
                 break;
                 case 'n':
                 const img_bn = new Image();
                 img_bn.onload = ()=>{
-                    ctx.drawImage(img_bn,x*this.unit,y*this.unit,this.unit,this.unit);
+                    this.ctx.drawImage(img_bn,x*this.unit,y*this.unit,this.unit,this.unit);
                 };
                 img_bn.src = './rc/60bn.png';
                 break;
                 case 'N':
                 const img_wn = new Image();
                 img_wn.onload = ()=>{
-                    ctx.drawImage(img_wn,x*this.unit,y*this.unit,this.unit,this.unit);
+                    this.ctx.drawImage(img_wn,x*this.unit,y*this.unit,this.unit,this.unit);
                 };
                 img_wn.src = './rc/60wn.png';
                 break;
                 case 'r':
                 const img_br = new Image();
                 img_br.onload = ()=>{
-                    ctx.drawImage(img_br,x*this.unit,y*this.unit,this.unit,this.unit);
+                    this.ctx.drawImage(img_br,x*this.unit,y*this.unit,this.unit,this.unit);
                 };
                 img_br.src = './rc/60br.png';
                 break;
                 case 'R':
                 const img_wr = new Image();
                 img_wr.onload = ()=>{
-                    ctx.drawImage(img_wr,x*this.unit,y*this.unit,this.unit,this.unit);
+                    this.ctx.drawImage(img_wr,x*this.unit,y*this.unit,this.unit,this.unit);
                 };
                 img_wr.src = './rc/60wr.png';
                 break;
                 case 'q':
                 const img_bq = new Image();
                 img_bq.onload = ()=>{
-                    ctx.drawImage(img_bq,x*this.unit,y*this.unit,this.unit,this.unit);
+                    this.ctx.drawImage(img_bq,x*this.unit,y*this.unit,this.unit,this.unit);
                 };
                 img_bq.src = './rc/60bq.png';
                 break;
                 case 'Q':
                 const img_wq = new Image();
                 img_wq.onload = ()=>{
-                    ctx.drawImage(img_wq,x*this.unit,y*this.unit,this.unit,this.unit);
+                    this.ctx.drawImage(img_wq,x*this.unit,y*this.unit,this.unit,this.unit);
                 };
                 img_wq.src = './rc/60wq.png';
                 break;
                 case 'p':
                 const img_bp = new Image();
                 img_bp.onload = ()=>{
-                    ctx.drawImage(img_bp,x*this.unit,y*this.unit,this.unit,this.unit);
+                    this.ctx.drawImage(img_bp,x*this.unit,y*this.unit,this.unit,this.unit);
                 };
                 img_bp.src = './rc/60bp.png';
                 break;
                 case 'P':
                 const img_wp = new Image();
                 img_wp.onload = ()=>{
-                    ctx.drawImage(img_wp,x*this.unit,y*this.unit,this.unit,this.unit);
+                    this.ctx.drawImage(img_wp,x*this.unit,y*this.unit,this.unit,this.unit);
                 };
                 img_wp.src = './rc/60wp.png';
                 break;

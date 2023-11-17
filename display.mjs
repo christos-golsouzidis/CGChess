@@ -1,32 +1,33 @@
 
-import { position, board, o, chessMenu } from "./main.mjs";
+import { Board } from "./board.mjs";
+import { o, chessMenu } from "./main.mjs";
 
 
 // to do ... might need be added to the board class
-export function ResizeWindow () 
+export function ResizeWindow(obj) 
 { 
     let wwidth = window.innerWidth;
     let wheight = window.innerHeight;
-    let Canvas = document.getElementById('main_canvas');
-    let ctx = Canvas.getContext('2d');
-    let unit;
+    // let Canvas = document.getElementById('main_canvas');
+    // let ctx = Canvas.getContext('2d');
+    // let unit;
+
 
     if(wheight >= wwidth)
     {
-        Canvas.height = wwidth;
-        Canvas.width = wwidth;
+        obj.canvas.height = wwidth;
+        obj.canvas.width = wwidth;
     }
     else
     {
-        Canvas.height = wheight;
-        Canvas.width = wheight;
+        obj.canvas.height = wheight;
+        obj.canvas.width = wheight;
     }
-    unit = Canvas.width / 8;
-    if (ctx !== null) {
-        DrawBoard(ctx, unit);
-        DrawPieces(ctx, unit);
-    }
+    obj.unit = obj.canvas.width / 8;
+    obj.drawBoard();
+    obj.drawPieces();
 
+    // reset menu values when resizing
     chessMenu.reset();
 
     if($("#toggle").css('display') === 'none')

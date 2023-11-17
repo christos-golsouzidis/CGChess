@@ -33,12 +33,15 @@ export const chessMenu = new ChessMenu();
 
 $('document').ready(function ()
 {
-    // reset menu values
-    chessMenu.reset();
+    // initialize canvas
+
 
     // initialize board
-    let board = new Board();
+    let board = new Board(document.getElementById('main_canvas'),8,8,10);
     board.createNewRFC();
+
+    // firstly call resize so that everything is displayed properly
+    ResizeWindow(board);
 
     // register events
     $('#toggle').on('click',function(){
@@ -47,7 +50,7 @@ $('document').ready(function ()
         DisplayMenu();
     });
 
-    $(window).on('resize',ResizeWindow);
+    $(window).on('resize',function(){ResizeWindow(board)});
 
     $('#game').on('click',ToggleGameMenu);
 
@@ -55,7 +58,7 @@ $('document').ready(function ()
 
     $('#view').on('click',ToggleViewMenu);
 
-    $('#classic_button').on('click',board.createNewClassical);
+    $('#classic_button').on('click',function(){board.createNewClassical();});
 
     $('#spid').on('click',function(){this.select();});
 
@@ -66,8 +69,6 @@ $('document').ready(function ()
         }  
     });
 
-    $('#frc_button').on('click',board.createNewRFC);
+    $('#frc_button').on('click',function(){board.createNewRFC();});
 
-    // display functions
-    ResizeWindow();
 });
