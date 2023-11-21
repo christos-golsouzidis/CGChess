@@ -2,9 +2,10 @@
 "use strict";
 
 // imports
-import {ResizeWindow, ToggleGameMenu, ToggleEditMenu, ToggleViewMenu, 
-    DisplayMenu} from "./display.mjs";
+import {ResizeWindow} from "./display.mjs";
 import { Board } from "./board.mjs";
+import { ChessMenu } from "./menu.mjs";
+import { MouseDown, MouseUp, MouseMove } from "./interact.mjs";
 
 // exports
 export const game = {
@@ -16,32 +17,20 @@ export const game = {
 export const o = (i)=>console.log(String(i));
 // ----------------------------------------------------------------------
 
-export class ChessMenu {
-  constructor(){
-    this.reset()
-  }
-  reset(){
-    this.option_game = false;
-    this.option_edit = false;
-    this.option_view = false;
-  }
-}
 
-
-export const chessMenu = new ChessMenu();
 
 
 $('document').ready(function ()
 {
-    // initialize canvas
-
+    // initialize menu
+    let chessMenu = new ChessMenu();
 
     // initialize board
     let board = new Board(document.getElementById('main_canvas'),8,8,10);
     board.createNewRFC();
 
     // firstly call resize so that everything is displayed properly
-    ResizeWindow(board);
+    ResizeWindow(board, chessMenu);
 
     // register events
     $('#toggle').on('click',function(){
@@ -50,13 +39,22 @@ $('document').ready(function ()
         DisplayMenu();
     });
 
-    $(window).on('resize',function(){ResizeWindow(board)});
+    $(window).on('resize',function(){ResizeWindow(board, chessMenu)});
 
-    $('#game').on('click',ToggleGameMenu);
+    $('#game').on('click',function(){
+        chessMenu.toggleGameMenu();
+        ResizeWindow(board, chessMenu);
+    });
 
-    $('#edit').on('click',ToggleEditMenu);
+    $('#edit').on('click',function(){
+        chessMenu.toggleEditMenu();
+        ResizeWindow(board, chessMenu);
+    });
 
-    $('#view').on('click',ToggleViewMenu);
+    $('#view').on('click',function(){
+        chessMenu.toggleViewMenu();
+        ResizeWindow(board, chessMenu);
+    });
 
     $('#classic_button').on('click',function(){board.createNewClassical();});
 
@@ -71,4 +69,15 @@ $('document').ready(function ()
 
     $('#frc_button').on('click',function(){board.createNewRFC();});
 
+    $('#board').on('mousedown',function(key){
+        MouseDown(key, board);
+    });
+
+    $('#board').on('mouseup',function(key){
+        MouseUp(key, board);
+    });
+
+    $('#board').on('mousemove',function(key){
+        MouseMove(key, board);
+    });
 });

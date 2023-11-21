@@ -21,7 +21,7 @@ body{
 
 nav{
     background-color: black;
-    padding: 40px;
+    padding: 10px;
 }
 
 .mainbordermenu{
@@ -74,6 +74,14 @@ canvas{
     width: 90%;
 }
 
+#stack{
+    position: absolute;
+    display: block;
+    color: black;
+    z-index: 1;
+    pointer-events: none;
+}
+
 #piece_setup{
     width: 100%;
 }
@@ -87,7 +95,7 @@ canvas{
     font-family: 'Courier New', Courier, monospace;
 }
 
-@media only screen and (max-width: 768px) {
+@media only screen and (max-width: 602px) {
     .navigo{
         display:block;
     }

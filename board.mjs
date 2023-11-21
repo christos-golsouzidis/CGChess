@@ -1,4 +1,7 @@
 
+import { o } from "./main.mjs";
+
+
 export class Board {
     constructor(canvas, rows, columns, unit, dark = '#3ebf8e', light = '#a8fbdc'){
         this.rows = rows;
@@ -9,6 +12,7 @@ export class Board {
         this.light = light;
         this.unit = unit;
         this.squares = Array.from({ length: this.cols }, () => Array(this.rows).fill(''));
+        this.stack = '';
     }
 
     initializePieces(startPos)
@@ -226,6 +230,7 @@ export class Board {
 
     drawBoard()
     {
+        o('genetral')
         for(let y=0;y<this.rows;y++)
         {
             for(let x=0;x<this.cols;x++)
@@ -241,6 +246,19 @@ export class Board {
                 this.ctx.fillRect(this.unit*x, this.unit*y, this.unit, this.unit);
             }
         }
+    }
+
+    drawSquare(x, y)
+    {
+                if(((x ^ y) % 2) == 0)
+                {
+                    this.ctx.fillStyle = this.light;
+                }
+                else
+                {
+                    this.ctx.fillStyle = this.dark;
+                }
+                this.ctx.fillRect(this.unit*x, this.unit*y, this.unit, this.unit);
     }
 
     drawPieces()
@@ -339,5 +357,99 @@ export class Board {
             }
         }
     }
+
+    drawStackPiece(x, y){
+
+        switch(this.stack)
+        {
+        case 'k':
+        const img_bk = new Image();
+        o(img_bk)
+        img_bk.onload = ()=>{
+            this.ctx.drawImage(img_bk,x,y,this.unit,this.unit);
+        };
+        img_bk.src = './rc/60bk.png';
+        break;
+        case 'K':
+        const img_wk = new Image();
+        img_wk.onload = ()=>{
+            this.ctx.drawImage(img_wk,x,y,this.unit,this.unit);
+        };
+        img_wk.src = './rc/60wk.png';
+        break;
+        case 'b':
+        const img_bb = new Image();
+        img_bb.onload = ()=>{
+            this.ctx.drawImage(img_bb,x,y,this.unit,this.unit);
+        };
+        img_bb.src = './rc/60bb.png';
+        break;
+        case 'B':
+        const img_wb = new Image();
+        img_wb.onload = ()=>{
+            this.ctx.drawImage(img_wb,x,y,this.unit,this.unit);
+        };
+        img_wb.src = './rc/60wb.png';
+        break;
+        case 'n':
+        const img_bn = new Image();
+        img_bn.onload = ()=>{
+            this.ctx.drawImage(img_bn,x,y,this.unit,this.unit);
+        };
+        img_bn.src = './rc/60bn.png';
+        break;
+        case 'N':
+        const img_wn = new Image();
+        img_wn.onload = ()=>{
+            this.ctx.drawImage(img_wn,x,y,this.unit,this.unit);
+        };
+        img_wn.src = './rc/60wn.png';
+        break;
+        case 'r':
+        const img_br = new Image();
+        img_br.onload = ()=>{
+            this.ctx.drawImage(img_br,x,y,this.unit,this.unit);
+        };
+        img_br.src = './rc/60br.png';
+        break;
+        case 'R':
+        const img_wr = new Image();
+        img_wr.onload = ()=>{
+            this.ctx.drawImage(img_wr,x,y,this.unit,this.unit);
+        };
+        img_wr.src = './rc/60wr.png';
+        break;
+        case 'q':
+        const img_bq = new Image();
+        img_bq.onload = ()=>{
+            this.ctx.drawImage(img_bq,x,y,this.unit,this.unit);
+        };
+        img_bq.src = './rc/60bq.png';
+        break;
+        case 'Q':
+        const img_wq = new Image();
+        img_wq.onload = ()=>{
+            this.ctx.drawImage(img_wq,x,y,this.unit,this.unit);
+        };
+        img_wq.src = './rc/60wq.png';
+        break;
+        case 'p':
+        const img_bp = new Image();
+        img_bp.onload = ()=>{
+            this.ctx.drawImage(img_bp,x,y,this.unit,this.unit);
+        };
+        img_bp.src = './rc/60bp.png';
+        break;
+        case 'P':
+        const img_wp = new Image();
+        img_wp.onload = ()=>{
+            this.ctx.drawImage(img_wp,x,y,this.unit,this.unit);
+        };
+        img_wp.src = './rc/60wp.png';
+        break;
+        }
+    }
+
+
 
 }

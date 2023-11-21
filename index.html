@@ -26,14 +26,14 @@
                         <button class="classical game subitem" id="classic_button">
                             <h3>New Classical Game</h3>
                         </button>
-                        <h4>Random Fischer Game:</h4>
+                        <h4>Chess960 Game:</h4>
                         <div class="flexclass">
                         <h5>SPID:</h5>
                         <input type="text" class="ninesixty game subitem"
-                         id="spid" value="&lt;random&gt; (default)">
+                         id="spid" value="&lt;random&gt;" maxlength="3">
                         </div>
                         <button class="ninesixty game subitem" id="frc_button">
-                            <h3>New RFC Game</h3>
+                            <h3>Generate Game</h3>
                         </button>
                     </div>
                     <button class="edit subitem" id="edit">
@@ -51,20 +51,26 @@
                     </button>
                     <div class="submenu_view">
                         
-                        <div class="view subitem">
-                            bla bla
-                        </div>
+                        <button class="flip view subitem" id="flip_board">
+                            <h3>Flip board</h3>
+                        </button>
+                    </div>
 
+                    <div class="rfcid">
+                        <h5>SPID: <span id="rfc_id">518</span></h5>
                     </div>
                 </div>
+
             </div>
         </div>
-        <div id="board">
-            <canvas id="main_canvas"></canvas>
+        <div id="chessboard">
+            <div id="board">
+                <canvas id="main_canvas"></canvas>
+            </div>
+            <div id="stack">
+                
+            </div>
         </div>
-    </div>
-    <div class="rfcid">
-        <h3>SPID: <span id="rfc_id">518</span></h3>
     </div>
     <div class="fenbox">
         <label>FEN:</label>
